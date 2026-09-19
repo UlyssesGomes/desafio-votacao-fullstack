@@ -3,6 +3,7 @@ package com.votacao.app.service;
 import com.votacao.app.dto.CriarPautaDTO;
 import com.votacao.app.dto.EditarPautaDTO;
 import com.votacao.app.dto.PautaRespostaDTO;
+import com.votacao.app.exceptions.RecursoNaoEncontradoException;
 import com.votacao.app.model.Pauta;
 import com.votacao.app.repository.PautaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +11,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 public class PautaService {
@@ -28,8 +27,7 @@ public class PautaService {
 
     @Transactional
     public PautaRespostaDTO editarPauta(EditarPautaDTO pautaDto, Long id) {
-        // TODO - adicionar business exception aqui
-        Pauta pauta = repository.findById(id).orElseThrow();
+        Pauta pauta = repository.findById(id).orElseThrow(() -> new RecursoNaoEncontradoException("Pauta com id " + id + " não encontrada."));
         pauta.setTitulo(pautaDto.titulo());
         pauta.setDescricao(pautaDto.descricao());
 
@@ -37,8 +35,7 @@ public class PautaService {
     }
 
     public PautaRespostaDTO buscarPautaPorId(Long id) {
-        // TODO - adicionar business exception aqui
-        Pauta pauta = repository.findById(id).orElseThrow();
+        Pauta pauta = repository.findById(id).orElseThrow(() -> new RecursoNaoEncontradoException("Pauta com id " + id + " não encontrada."));
 
         return new PautaRespostaDTO(pauta);
     }
