@@ -45,6 +45,7 @@ public class PautaController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity deletarPautaPorId(@PathVariable Long id) {
+        service.deletarPorId(id);
         return ResponseEntity.noContent().build();
     }
 
