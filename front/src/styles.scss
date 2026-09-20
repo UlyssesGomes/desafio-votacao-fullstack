@@ -1,4 +1,16 @@
-/* You can add global styles to this file, and also import other style files */
-html, body {
+:root {
+  --body-background: var(--p-slate-950);
+  --primary-background: #5333ed;
+  --primary-background-contrast: #2cd4d9;
+  --secondary-background: #283f78;
+  --third-background: rgb(69, 186, 134);
+  --font-white: #FFF;
+  --font-defailt: #333;
+}
+
+html,
+body {
   font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  margin: 0;
+  min-height: 100vh;
 }
