@@ -1,0 +1,24 @@
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 3;
+    background: linear-gradient(135deg,  var(--primary-background-contrast), var(--primary-background));;
+    padding: 5px 20px;
+
+    .nav-menus {
+        .nav-link {
+            text-decoration: none;
+        }
+    }
+    height: 80px;
+    box-shadow: 1px 3px 15px 5px rgba(0,0,0,0.19);
+    color: var(--font-white);
+}
+
+.perfil-image {
+    width: 35px;
+}
+
+.logo-navbar {
+    height: 75px;
+}

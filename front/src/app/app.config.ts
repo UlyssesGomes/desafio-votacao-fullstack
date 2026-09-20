@@ -6,9 +6,11 @@ import { routes } from './app.routes';
 
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeuix/themes/aura';
+import { provideHttpClient } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideHttpClient(),
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
@@ -16,7 +18,13 @@ export const appConfig: ApplicationConfig = {
     providePrimeNG({
       ripple: true,
       theme: {
-        preset: Aura
+        preset: Aura,
+        options: {
+            cssLayer: {
+                name: 'primeng',
+                order: 'theme, base, primeng'
+            }
+        }
       }
     })
   ]
