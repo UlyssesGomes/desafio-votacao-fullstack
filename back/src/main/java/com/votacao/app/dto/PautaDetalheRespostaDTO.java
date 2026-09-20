@@ -11,6 +11,10 @@ public record PautaDetalheRespostaDTO(
         List<VotoDetalheDTO> votos
 ) {
     public PautaDetalheRespostaDTO(Pauta pauta) {
-        this(pauta.getId(), pauta.getTitulo(), pauta.getDescricao(), pauta.getVotos().stream().map(voto -> new VotoDetalheDTO(voto)).toList());
+        List<VotoDetalheDTO> votoDetalheDTOList = null;
+        if(pauta.getVotos() != null && pauta.getVotos().size() > 0) {
+            votoDetalheDTOList = pauta.getVotos().stream().map(voto -> new VotoDetalheDTO(voto)).toList();
+        }
+        this(pauta.getId(), pauta.getTitulo(), pauta.getDescricao(), votoDetalheDTOList);
     }
 }

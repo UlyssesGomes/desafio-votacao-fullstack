@@ -1,4 +1,4 @@
-package com.votacao.app;
+package com.votacao.app.http;
 
 import com.votacao.app.dto.ClienteHTTPRespostaDTO;
 import com.votacao.app.enums.ClienteVotoStatusEnum;

@@ -9,9 +9,11 @@ import org.springframework.stereotype.Component;
 public class VotoUsuarioValidacao implements VotoValidacao {
     @Override
     public void validar(Pauta pauta, VotoRecebidoDTO votoRecebidoDTO) {
-        pauta.getVotos().forEach(voto -> {
-            if(voto.getUsuarioId().equals(votoRecebidoDTO.usuarioId()))
-                throw new UsuarioVotoException("Usuário já realizou o seu voto anteriormente.");
-        });
+        if(pauta.getVotos() != null) {
+            pauta.getVotos().forEach(voto -> {
+                if(voto.getUsuarioId().equals(votoRecebidoDTO.usuarioId()))
+                    throw new UsuarioVotoException("Usuário já realizou o seu voto anteriormente.");
+            });
+        }
     }
 }

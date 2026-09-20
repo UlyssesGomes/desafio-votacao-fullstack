@@ -1,7 +1,7 @@
 package com.votacao.app.validation.voto;
 
 
-import com.votacao.app.ClienteHttpService;
+import com.votacao.app.http.ClienteHttpService;
 import com.votacao.app.dto.ClienteHTTPRespostaDTO;
 import com.votacao.app.dto.VotoRecebidoDTO;
 import com.votacao.app.enums.ClienteVotoStatusEnum;
