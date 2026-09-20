@@ -7,7 +7,7 @@ import java.util.List;
 public record PautaDetalheRespostaDTO(
         Long id,
         String titulo,
-        String decricao,
+        String descricao,
         List<VotoDetalheDTO> votos
 ) {
     public PautaDetalheRespostaDTO(Pauta pauta) {
