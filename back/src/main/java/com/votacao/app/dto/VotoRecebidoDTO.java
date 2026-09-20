@@ -7,6 +7,8 @@ import jakarta.validation.constraints.NotNull;
 public record VotoRecebidoDTO(
         @NotNull(message = "{voto.usuario}")
         Long usuarioId,
+        @NotBlank(message = "{voto.cpf-obrigatorio}")
+        String cpf,
         @NotBlank(message = "{voto.opcao}")
         VotoOpcaoEnum opcao
 ) {

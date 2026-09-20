@@ -93,7 +93,7 @@ public class PautaService {
     public void votar(VotoRecebidoDTO votoDto, Long pautaId) {
         Pauta pauta = repository.findById(pautaId).orElseThrow(() -> new RecursoNaoEncontradoException("Pauta com id " +  pautaId + " não encontrada."));
 
-        votoValidacoes.forEach(validacao -> validacao.validar(pauta, votoDto.usuarioId()));
+        votoValidacoes.forEach(validacao -> validacao.validar(pauta, votoDto));
 
         Voto v = new Voto(null, votoDto.usuarioId(), votoDto.opcao(), pauta);
 
