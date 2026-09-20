@@ -1,6 +1,8 @@
 package com.votacao.app.config.exception;
 
+import com.votacao.app.exceptions.ContabilizacaoException;
 import com.votacao.app.exceptions.RecursoNaoEncontradoException;
+import com.votacao.app.exceptions.SessaoException;
 import com.votacao.app.exceptions.UsuarioVotoException;
 import org.springframework.http.*;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -21,8 +23,18 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(UsuarioVotoException.class)
-    public ResponseEntity<ProblemDetail> naoEncontrado(UsuarioVotoException ex) {
-        return resposta(HttpStatus.CONFLICT, "Usuário já votou", ex.getMessage());
+    public ResponseEntity<ProblemDetail> erroNaVotacao(UsuarioVotoException ex) {
+        return resposta(HttpStatus.CONFLICT, "Operação De Voto Inválida", ex.getMessage());
+    }
+
+    @ExceptionHandler(SessaoException.class)
+    public ResponseEntity<ProblemDetail> erroNaSessao(SessaoException ex) {
+        return resposta(HttpStatus.BAD_REQUEST, "Operação Na Sessão Inválida", ex.getMessage());
+    }
+
+    @ExceptionHandler(ContabilizacaoException.class)
+    public ResponseEntity<ProblemDetail> naoEncontrado(ContabilizacaoException ex) {
+        return resposta(HttpStatus.BAD_REQUEST, "Erro Na Contabilização", ex.getMessage());
     }
 
     @ExceptionHandler(Exception.class)

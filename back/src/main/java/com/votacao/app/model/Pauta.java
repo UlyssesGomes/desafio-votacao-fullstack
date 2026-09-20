@@ -23,6 +23,9 @@ public class Pauta {
     private String descricao;
     private Instant dataAbertura;
     private Instant dataEncerramento;
+    private long votosSim;
+    private long votosNao;
+    private boolean sessaoFinalizada;
 
     @OneToMany(mappedBy = "pauta", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Voto> votos;

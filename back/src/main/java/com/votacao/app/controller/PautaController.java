@@ -1,8 +1,6 @@
 package com.votacao.app.controller;
 
-import com.votacao.app.dto.CriarPautaDTO;
-import com.votacao.app.dto.EditarPautaDTO;
-import com.votacao.app.dto.PautaRespostaDTO;
+import com.votacao.app.dto.*;
 import com.votacao.app.service.PautaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/pautas")
@@ -37,7 +34,7 @@ public class PautaController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PautaRespostaDTO> buscarPautaPorId(@PathVariable Long id) {
+    public ResponseEntity<PautaDetalheRespostaDTO> buscarPautaPorId(@PathVariable Long id) {
         return ResponseEntity.ok(service.buscarPautaPorId(id));
     }
 
@@ -49,5 +46,22 @@ public class PautaController {
     @DeleteMapping("/{id}")
     public ResponseEntity deletarPautaPorId(@PathVariable Long id) {
         return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping("/{id}/abrir-sessao")
+    public ResponseEntity<String> abrirSessao(@RequestBody AbrirSessaoDTO sessao, @PathVariable Long id) {
+        service.abrirSessao(sessao, id);
+        return ResponseEntity.ok("Sessão aberta.");
+    }
+
+    @PatchMapping("/{id}/votar")
+    public ResponseEntity receberVoto(@RequestBody VotoRecebidoDTO voto, @PathVariable Long id) {
+        service.votar(voto, id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{id}/contabilizar-votos")
+    public ResponseEntity<ResultadoDTO> contabilizarVotacao(@PathVariable Long id) {
+        return ResponseEntity.ok(service.contabilizarVotacao(id));
     }
 }
