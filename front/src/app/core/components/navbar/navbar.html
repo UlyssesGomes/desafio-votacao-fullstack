@@ -9,13 +9,7 @@
         <div class="flex items-center">
             <!-- menu -->
             <div class="ms-2 nav-menus clean-button show-element-md" *ngFor="let item of menuButtons">
-                <ng-container *ngIf="item.icon; then showIcon else showImage"></ng-container>
-                <ng-template #showIcon>
-                    <i class="me-2 {{item.icon}} text-xl md:text-lg"></i>
-                </ng-template>
-                <ng-template #showImage>
-                    <img class="inline me-2 image-icon" [src]="item.alternativeIcon" alt="Ícone para {{item.title}}">
-                </ng-template>
+                <i class="me-2 pi {{item.icon}} text-xl md:text-lg"></i>
                 <a class="nav-link" [routerLink]="item.path">{{item.title}}</a>
             </div>
         </div>
@@ -34,3 +28,5 @@
         <span class="show-element-md">Olá, <span class="font-bold">Ulysses Gomes</span></span>
     </div>
 </nav>
+
+<app-simple-sidebar [menuButtons]="menuButtons" [(isOpen)]="isSidebarOpen"/>

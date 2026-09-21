@@ -53,6 +53,10 @@ export class PautasPage implements OnInit {
     this.router.navigate(['pautas', id]);
   }
 
+  createPauta() {
+    this.router.navigate(['pautas/create']);
+  }
+
   getPautasList() {
     this.service.listWithPagination(this.first, this.pageSize).subscribe(response => {
       this.pautasList = response.content;

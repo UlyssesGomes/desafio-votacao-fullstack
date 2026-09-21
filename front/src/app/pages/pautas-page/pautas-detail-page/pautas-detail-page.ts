@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 
 import { ButtonModule } from 'primeng/button';
 import { DividerModule } from 'primeng/divider';
+import { MessageService } from 'primeng/api';
 
 import { ContentPanel } from '../../../shared/components/content-panel/content-panel';
 import { OpenSessionDialog } from './open-session-dialog/open-session-dialog';
@@ -26,7 +27,7 @@ export class PautasDetailPage implements OnInit {
   isOpenSessionDialogVisible = false;
   isOpenResultDialogVisible = false;
 
-  constructor(private service: PautaService, private route: ActivatedRoute) { }  
+  constructor(private service: PautaService, private route: ActivatedRoute, private message: MessageService) { }  
   
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
@@ -39,9 +40,14 @@ export class PautasDetailPage implements OnInit {
 
   closeModalSessionEvent(event: any) {
     if(event.confirm) {
-      this.service.openSessionById(this.id, { duracao: event.duration }).subscribe( (response: any) => {
-        console.log(response);
-        this.loadDetails();
+      this.service.openSessionById(this.id, { duracao: event.duration }).subscribe({
+        next: (response) => {
+          this.message.add({ severity: 'success', summary: 'Success', detail: response });
+          this.loadDetails();
+        },
+        error: (error) => {
+          this.message.add({ severity: 'error', summary: error.title, detail: error.message });
+        }
       });
     }
   }

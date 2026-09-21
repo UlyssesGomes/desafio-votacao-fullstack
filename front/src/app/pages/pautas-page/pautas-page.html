@@ -1,5 +1,8 @@
 <div>
     <app-content-panel title="Pautas">
+        <div top-buttons class="mt-1">
+            <p-button icon="pi pi-plus" (onClick)="createPauta()"/>
+        </div>
 
         <p-table [value]="pautasList" stripedRows [tableStyle]="{ 'min-width': '50rem' }" size="large">
             <ng-template #header>

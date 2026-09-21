@@ -145,6 +145,24 @@ export class PautaService {
     );
   }
 
+  vote(id: number, data: Partial<any>): Observable<any> {
+    const url = `${this.urlBase}${this.getEndpoint()}/${id}/votar`;
+    const headers = this.getHeaders();
+
+    if (environment.enableDebug) {
+      console.info(`PATCH ${this.getEndpoint()}/votar: `, url, data);
+    }
+
+    return this.http.patch<any>(url, data).pipe(
+      tap(response => {
+        if (environment.enableDebug) {
+          console.info(`${this.getEndpoint()}/votar PATCH: `, response);
+        }
+      }),
+      catchError(this.handleError)
+    );
+  }
+
   countVotesById(id: number): Observable<PautaResult> {
     const url = `${this.urlBase}${this.getEndpoint()}/${id}/contabilizar-votos`;
     const headers = this.getHeaders();
@@ -207,24 +225,20 @@ export class PautaService {
           errorTitle = 'Serviço indisponível';
           break;
         default:
-          errorTitle = `Erro ${error.status}`;
+          errorTitle = error.error.title;
       }
-      console.error('Catch> ', error);
-      //   // Adiciona mensagem do backend se existir
-      //   if (error?.error.error) {
-      //     errorMessage = `${error.error.error}`;
-      //   } else if (error?.error) {
-      //     errorMessage = `${error.error}`;
-      //   } else if (error.status) {
-      //     errorMessage = errorTitle;
-      //   }
+
+      if (error?.error) {
+        errorMessage = `${error.error.detail}`;
+      }
     }
 
-    // if (environment.enableDebug) {
-    //   console.error('Error HTTP:', error);
-    //   console.error('Message:', errorMessage);
-    // }
+    if (environment.enableDebug) {
+      console.error('Error HTTP:', error.error);
+    }
 
-    return throwError(() => { title: errorTitle; message: errorMessage; });
+    return throwError(() => {
+      return { title: errorTitle, message: errorMessage };
+    });
   }
 }

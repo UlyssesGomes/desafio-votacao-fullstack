@@ -1,0 +1,27 @@
+<div class="sidebar-pane p-3" [ngClass]="{'show-sidebar': isOpen, 'hide-sidebar': !isOpen}">
+    <div class="flex justify-start">
+        <div class="me-1">
+            <i class="pi pi-user text-xl md:text-lg"></i>
+        </div>
+        <div>
+            <span>Ulysses Gomes</span>
+        </div>
+    </div>
+    <p-divider />
+    @for (menu of menuButtons; track menu.title) {
+    <div class="mb-1">
+        <button class="clean-button w-full text-left" (click)="navigateTo(menu.path)">
+            <ng-container [ngTemplateOutlet]="menuButton"
+                [ngTemplateOutletContext]="{title: menu.title, icon: menu.icon, altIcon: menu.alternativeIcon}" />
+        </button>
+    </div>
+    }
+</div>
+<div class="block-pane" [ngStyle]="{'display': isOpen? 'block' : 'none'}" (click)="closeSidebar()"></div>
+
+<ng-template #menuButton let-title="title" let-icon="icon" let-altIcon="altIcon">
+    <div class="flex items-center">
+        <i class="me-2 pi {{icon}} text-xl md:text-lg"></i>
+        <span class="text-xl md:text-lg">{{title}}</span>
+    </div>
+</ng-template>

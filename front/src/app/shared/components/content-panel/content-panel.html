@@ -1,19 +1,23 @@
 <div class="lg:flex lg:justify-center">
     <div class="full-width ld:max-width-content p-3">
-        <div class="flex justify-start">
-            @if(backButton) {
-                <div class="pt-3 me-2">
-                    <button type="button" style="cursor: pointer;" (click)="navigateBack()">
-                        <i class="pi pi-arrow-left"></i>
-                    </button>
-                    <!-- <p-button icon="pi pi-arrow-left" severity="primary" [rounded]="true" [text]="true" /> -->
-                </div>
-            }
-            <h2 class="my-2">
-                {{title}}
-            </h2>
+        <div class="flex justify-between">
+            <div class="flex justify-start">
+                @if(backButton) {
+                    <div class="pt-3 me-2">
+                        <button type="button" style="cursor: pointer;" (click)="navigateBack()">
+                            <i class="mt-1 pi pi-arrow-left text-xl"></i>
+                        </button>
+                    </div>
+                }
+                <h2 class="my-2">
+                    {{title}}
+                </h2>
+            </div>
+            <div>
+                <ng-content select="[top-buttons]" />
+            </div>
         </div>
-        <div class="content-panel p-2">
+        <div class="content-panel p-4">
             <ng-content></ng-content>
         </div>
     </div>

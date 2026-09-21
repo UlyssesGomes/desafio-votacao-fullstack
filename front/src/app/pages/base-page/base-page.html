@@ -1,9 +1,7 @@
-<!-- <app-navbar [menuButtons]="menuButtons" [profileMenu]="profileMenuItems" [perfilInfo]="perfilInfo"
-  [shopCartAmount]="shopCartAmount" [permissions]="userPermissions"/> -->
-<div class="flex flex-col content-page-height">
 
+<div class="flex flex-col content-page-height">
   <header>
-    <app-navbar></app-navbar>
+    <app-navbar [menuButtons]="menuButtons"></app-navbar>
   </header>
 
   <main class="flex-1 m-2">
@@ -15,3 +13,4 @@
     <app-footer label="&copy; 2026 Votação Cooperativismo. Todos os direitos reservados." />
   </footer>
 </div>
+<p-toast position="bottom-right"/>
