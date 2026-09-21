@@ -1,8 +1,10 @@
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 
 import { ButtonModule } from 'primeng/button';
+import { ConfirmationService } from 'primeng/api';
+import { ConfirmDialog } from 'primeng/confirmdialog';
 import { DividerModule } from 'primeng/divider';
 import { MessageService } from 'primeng/api';
 
@@ -15,7 +17,7 @@ import { ShowResultDialog } from './show-result-dialog/show-result-dialog';
 
 @Component({
   selector: 'app-pautas-detail-page',
-  imports: [CommonModule, ButtonModule, ContentPanel, DividerModule, OpenSessionDialog, ShowResultDialog],
+  imports: [CommonModule, ButtonModule, ConfirmDialog, ContentPanel, DividerModule, OpenSessionDialog, ShowResultDialog],
   templateUrl: './pautas-detail-page.html',
   styleUrl: './pautas-detail-page.scss',
 })
@@ -27,8 +29,9 @@ export class PautasDetailPage implements OnInit {
   isOpenSessionDialogVisible = false;
   isOpenResultDialogVisible = false;
 
-  constructor(private service: PautaService, private route: ActivatedRoute, private message: MessageService) { }  
-  
+  constructor(private service: PautaService, private route: ActivatedRoute, private message: MessageService,
+    private location: Location, private dialogService: ConfirmationService) { }
+
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
     this.loadDetails();
@@ -39,7 +42,7 @@ export class PautasDetailPage implements OnInit {
   }
 
   closeModalSessionEvent(event: any) {
-    if(event.confirm) {
+    if (event.confirm) {
       this.service.openSessionById(this.id, { duracao: event.duration }).subscribe({
         next: (response) => {
           this.message.add({ severity: 'success', summary: 'Success', detail: response });
@@ -53,9 +56,43 @@ export class PautasDetailPage implements OnInit {
   }
 
   countVotes() {
-    this.service.countVotesById(this.id).subscribe( (result: PautaResult) => {
+    this.service.countVotesById(this.id).subscribe((result: PautaResult) => {
       this.pautaResult = result;
       this.isOpenResultDialogVisible = true;
+    });
+  }
+
+  confirmDelete(event: Event) {
+    this.dialogService.confirm({
+      target: event.target as EventTarget,
+      message: 'Tem certeza que deseja deletar essa Pauta?',
+      header: 'ATENÇÃO!',
+      icon: 'pi pi-exclamation-triangle',
+      rejectLabel: 'Cancelar',
+      rejectButtonProps: {
+        label: 'Cancelar',
+        severity: 'secondary',
+        outlined: true,
+      },
+      acceptButtonProps: {
+        label: 'Deletar',
+        severity: 'danger',
+      },
+      accept: () => {
+        this.delete();
+      }
+    });
+  }
+
+  delete() {
+    this.service.deleteById(this.id).subscribe({
+      next: (response) => {
+        this.message.add({ severity: 'success', summary: 'Success', detail: 'Pauta deletada com sucesso.' });
+        this.location.back();
+      },
+      error: (error) => {
+        this.message.add({ severity: 'error', summary: error.title, detail: error.message });
+      }
     });
   }
 

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 import { ButtonModule } from 'primeng/button';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { Toast } from 'primeng/toast';
 
 import { Footer } from '../../core/components/footer/footer';
@@ -14,7 +14,7 @@ import { NavbarMenuItem } from '../../core/components/navbar/navbar-menu-item';
   imports: [RouterOutlet, ButtonModule, Navbar, Footer, Toast],
   templateUrl: './base-page.html',
   styleUrl: './base-page.scss',
-  providers: [MessageService]
+  providers: [MessageService, ConfirmationService]
 })
 export class BasePage {
 

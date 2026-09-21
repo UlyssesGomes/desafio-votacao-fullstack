@@ -1,4 +1,8 @@
 <app-content-panel title="Pauta {{pautaDetail?.titulo}}" [backButton]="true">
+    <div top-buttons>
+        <p-button icon="pi pi-trash" severity="danger" (onClick)="confirmDelete($event)"/>
+    </div>
+
     <div class="p-2 grid grid-cols-10 gap-2">
         <ng-container *ngTemplateOutlet="tmpl; context: {title: 'ID', description: pautaDetail?.id, isDate: false }" />
         <ng-container *ngTemplateOutlet="tmpl; context: {title: 'Título da pauta', description: pautaDetail?.titulo, isDate: false }" />
@@ -38,4 +42,8 @@
 
 <app-open-session-dialog [(visible)]="isOpenSessionDialogVisible" (onClose)="closeModalSessionEvent($event)"></app-open-session-dialog>
 
-<app-show-result-dialog [(visible)]="isOpenResultDialogVisible" [pautaResult]="pautaResult"></app-show-result-dialog>
+@if(isOpenResultDialogVisible) {
+    <app-show-result-dialog [(visible)]="isOpenResultDialogVisible" [pautaResult]="pautaResult"></app-show-result-dialog>
+}
+
+<p-confirmdialog />

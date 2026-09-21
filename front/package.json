@@ -28,6 +28,7 @@
     "@angular/router": "^20.1.0",
     "@primeuix/themes": "^3.0.1",
     "@tailwindcss/postcss": "^4.3.3",
+    "chart.js": "^4.5.1",
     "postcss": "^8.5.28",
     "primeicons": "^8.0.1",
     "primeng": "^20.4.0",
