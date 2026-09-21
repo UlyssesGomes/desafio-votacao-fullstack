@@ -1,0 +1,18 @@
+<p-dialog [(visible)]="visible" [modal]="true" [style]="{ width: '25rem' }" (onHide)="close()">
+    <ng-template #header>
+        <h4>Resultado da Votação</h4>
+    </ng-template>
+    <div class="py-3 flex justify-around">
+        <div>
+            <p-chip class="positive-chip" label="Sim" />
+            {{pautaResult?.SIM}}
+        </div>
+        <div>
+            <p-chip class="negative-chip" label="Não" />
+            {{pautaResult?.NAO}}
+        </div>        
+    </div>
+    <ng-template #footer>
+        <p-button label="Fechar" severity="secondary" (click)="close()" />
+    </ng-template>
+</p-dialog>

@@ -6,6 +6,7 @@ import { catchError, Observable, tap, throwError } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { PaginatedResponse } from '../../../shared/models/paginated-response';
 import { Pautas } from '../model/pautas';
+import { PautaResult } from '../model/pauta-result';
 
 @Injectable({
   providedIn: 'root',
@@ -127,10 +128,41 @@ export class PautaService {
     );
   }
 
-  /**
-   * Implement to tell which source this api will consume.
-   * Ex: if you are in user feature, return string 'user'.
-   */
+  openSessionById(id: number, data: Partial<{ duracao: number }>): Observable<string> {
+    const url = `${this.urlBase}${this.getEndpoint()}/${id}/abrir-sessao`;
+
+    if (environment.enableDebug) {
+      console.info(`PATCH ${this.getEndpoint()}/abrir-sessao: `, url, data);
+    }
+
+    return this.http.patch(url, data, { responseType: 'text' }).pipe(
+      tap(response => {
+        if (environment.enableDebug) {
+          console.info(`${this.getEndpoint()}/abrir-sessao PATCH: `, response);
+        }
+      }),
+      catchError(this.handleError)
+    );
+  }
+
+  countVotesById(id: number): Observable<PautaResult> {
+    const url = `${this.urlBase}${this.getEndpoint()}/${id}/contabilizar-votos`;
+    const headers = this.getHeaders();
+
+    if (environment.enableDebug) {
+      console.info(`GET ${this.getEndpoint()}/contabilizar-votos: `, url);
+    }
+
+    return this.http.get<PautaResult>(url, { headers }).pipe(
+      tap(response => {
+        if (environment.enableDebug) {
+          console.info(`${this.getEndpoint()}/contabilizar-votos GET response by ID: `, response);
+        }
+      }),
+      catchError(this.handleError)
+    );
+  }
+
   private getEndpoint(): string {
     return 'api/v1/pautas';
   }
@@ -144,8 +176,8 @@ export class PautaService {
   }
 
   /**
- * Tratamento de erros
- */
+  * Tratamento de erros
+  */
   protected handleError(error: HttpErrorResponse): Observable<never> {
     let errorMessage = 'Ocorreu um erro desconhecido';
     let errorTitle = 'Erro';
@@ -177,21 +209,21 @@ export class PautaService {
         default:
           errorTitle = `Erro ${error.status}`;
       }
-
-      // Adiciona mensagem do backend se existir
-      if (error?.error.error) {
-        errorMessage = `${error.error.error}`;
-      } else if (error?.error) {
-        errorMessage = `${error.error}`;
-      } else if (error.status) {
-        errorMessage = errorTitle;
-      }
+      console.error('Catch> ', error);
+      //   // Adiciona mensagem do backend se existir
+      //   if (error?.error.error) {
+      //     errorMessage = `${error.error.error}`;
+      //   } else if (error?.error) {
+      //     errorMessage = `${error.error}`;
+      //   } else if (error.status) {
+      //     errorMessage = errorTitle;
+      //   }
     }
 
-    if (environment.enableDebug) {
-      console.error('Error HTTP:', error);
-      console.error('Message:', errorMessage);
-    }
+    // if (environment.enableDebug) {
+    //   console.error('Error HTTP:', error);
+    //   console.error('Message:', errorMessage);
+    // }
 
     return throwError(() => { title: errorTitle; message: errorMessage; });
   }

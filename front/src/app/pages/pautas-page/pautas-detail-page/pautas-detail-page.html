@@ -1,0 +1,41 @@
+<app-content-panel title="Pauta {{pautaDetail?.titulo}}" [backButton]="true">
+    <div class="p-2 grid grid-cols-10 gap-2">
+        <ng-container *ngTemplateOutlet="tmpl; context: {title: 'ID', description: pautaDetail.id, isDate: false }" />
+        <ng-container *ngTemplateOutlet="tmpl; context: {title: 'Título da pauta', description: pautaDetail.titulo, isDate: false }" />
+        <ng-container *ngTemplateOutlet="tmpl; context: {title: 'Descrição pauta', description: pautaDetail.descricao, isDate: false }" />
+        @if(pautaDetail.dataAbertura) {
+            <ng-container *ngTemplateOutlet="tmpl; context: {title: 'Abertura de sessão', description: pautaDetail.dataAbertura, isDate: true }" />
+        }
+        @if(pautaDetail.dataEncerramento) {
+            <ng-container *ngTemplateOutlet="tmpl; context: {title: 'Encerramento de sessão', description: pautaDetail.dataEncerramento, isDate: true }" />
+        }
+
+        @if(pautaDetail.dataAbertura == undefined){
+            <div class="col-span-10 md:col-span-2">
+                <p-button fluid="true" label="Abrir Sessão" (onClick)="openSession()" />
+            </div>
+        }
+
+        @if(pautaDetail.dataAbertura && pautaDetail.dataEncerramento) {
+            <div class="col-span-10 md:col-span-2">
+                <p-button fluid="true" label="Contar Votos" (onClick)="countVotes()" />
+            </div>
+        }
+    </div>
+</app-content-panel>
+
+<ng-template #tmpl let-title="title" let-description="description" let-isDate="isDate">
+    <div class="col-span-10 md:col-span-2"><span style="font-weight: bold;">{{title}}:</span></div>
+    <div class="col-span-10 md:col-span-8">
+        @if(isDate) {
+            <p>{{description | date:'dd/MM/yyyy HH:mm'}}</p>
+        } @else {
+            <p>{{description}}</p>
+        }
+    </div>
+    <p-divider class="col-span-10" />
+</ng-template>
+
+<app-open-session-dialog [(visible)]="isOpenSessionDialogVisible" (onClose)="closeModalSessionEvent($event)"></app-open-session-dialog>
+
+<app-show-result-dialog [(visible)]="isOpenResultDialogVisible" [pautaResult]="pautaResult"></app-show-result-dialog>

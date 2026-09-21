@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 
+import { PautasDetailPage } from '../pautas-page/pautas-detail-page/pautas-detail-page';
 import { PautasPage } from '../pautas-page/pautas-page';
 
 export const basePageRoutes: Routes = [
@@ -10,6 +11,10 @@ export const basePageRoutes: Routes = [
             {
                 path: 'pautas',
                 component: PautasPage
+            },
+            {
+                path: 'pautas/:id',
+                component: PautasDetailPage
             },
             {
                 path: '',

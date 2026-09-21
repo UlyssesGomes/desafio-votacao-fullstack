@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { ButtonModule } from 'primeng/button';
 import { PaginatorModule } from 'primeng/paginator';
@@ -31,7 +32,7 @@ export class PautasPage implements OnInit {
     { label: 120, value: 120 }
   ];
 
-  constructor(private service: PautaService) { }
+  constructor(private service: PautaService, private router: Router) { }
 
   ngOnInit(): void {
     this.getPautasList();
@@ -46,6 +47,10 @@ export class PautasPage implements OnInit {
   changePageSize() {
     this.first = 0;
     this.getPautasList();
+  }
+
+  showPautaDetails(id: number) {
+    this.router.navigate(['pautas', id]);
   }
 
   getPautasList() {
