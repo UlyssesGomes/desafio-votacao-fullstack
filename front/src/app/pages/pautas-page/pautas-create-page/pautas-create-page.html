@@ -8,7 +8,7 @@
             </p-floatlabel>
 
             @if (invalidField('titulo')) {
-            <p-message severity="error" variant="simple" size="small">
+            <p-message data-cy="titulo-error-message" severity="error" variant="simple" size="small">
                 {{ errorMessage('titulo') }}
             </p-message>
             }
@@ -21,12 +21,12 @@
             </p-floatlabel>
 
             @if (invalidField('descricao')) {
-            <p-message severity="error" variant="simple" size="small">
+            <p-message data-cy="descricao-error-message" severity="error" variant="simple" size="small">
                 {{ errorMessage('descricao') }}
             </p-message>
             }
         </div>
 
-        <p-button type="submit" label="Salvar" [disabled]="form.invalid" />
+        <p-button type="submit" data-cy="save-button" label="Salvar" [disabled]="form.invalid" />
     </form>
 </app-content-panel>

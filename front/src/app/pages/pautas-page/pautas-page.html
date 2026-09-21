@@ -19,7 +19,7 @@
                     <td>{{ pauta.titulo }}</td>
                     <td class="ellipsis">{{ pauta.descricao }}</td>
                     <td>
-                        <p-button icon="pi pi-search" severity="secondary" rounded (onClick)="showPautaDetails(pauta.id)"/>
+                        <p-button data-cy="detail-button" icon="pi pi-search" severity="secondary" rounded (onClick)="showPautaDetails(pauta.id)"/>
                     </td>
                 </tr>
             </ng-template>

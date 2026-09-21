@@ -69,7 +69,7 @@ export class PautasCreatePage {
     }
 
     this.service.create(this.form.value).subscribe(() => {
-      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Pauta criada com sucesso.' });
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Pauta criada com sucesso.'});
       this.location.back();
     });
   }
