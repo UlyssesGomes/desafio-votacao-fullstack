@@ -1,0 +1,16 @@
+
+<div class="flex flex-col content-page-height">
+  <header>
+    <app-navbar [menuButtons]="menuButtons"></app-navbar>
+  </header>
+
+  <main class="flex-1 m-2">
+    <router-outlet />
+    <!-- <p-confirmdialog /> -->
+  </main>
+
+  <footer class="mt-3">
+    <app-footer label="&copy; 2026 Votação Cooperativismo. Todos os direitos reservados." />
+  </footer>
+</div>
+<p-toast position="bottom-right"/>

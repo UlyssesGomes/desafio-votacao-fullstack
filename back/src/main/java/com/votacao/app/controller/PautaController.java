@@ -50,7 +50,7 @@ public class PautaController {
     }
 
     @PatchMapping("/{id}/abrir-sessao")
-    public ResponseEntity<String> abrirSessao(@RequestBody AbrirSessaoDTO sessao, @PathVariable Long id) {
+    public ResponseEntity<String> abrirSessao(@Valid @RequestBody AbrirSessaoDTO sessao, @PathVariable Long id) {
         service.abrirSessao(sessao, id);
         return ResponseEntity.ok("Sessão aberta.");
     }

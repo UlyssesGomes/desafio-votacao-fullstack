@@ -1,0 +1,77 @@
+@use "sass:map";
+
+$screen-sizes: (
+    "xs": (
+        "min": 1px,
+        "max": 639px 
+    ),
+    "sm": (
+        "min": 640px,
+        "max": 767px 
+    ),
+    "md": (
+        "min": 768px,
+        "max": 1023px 
+    ),
+    "lg": (
+        "min": 1024px,
+        "max": 1279px 
+    ),
+    "xl": (
+        "min": 1280px,
+        "max": 1535px
+    ),
+    "2xl": (
+        "min": 1536px,
+    )
+);
+
+
+@mixin set-responsive-classes($current-resolution) {
+    $is-show: true;
+    $is-hide: true;
+    @each $name, $screen-size in $screen-sizes {
+
+        // .show-element-<x> => resolutions greater than and equal to x receive display block.
+        // Exemplo: .show-element-md will show resolutions md, lg, xl and 2xl.
+        @if $is-show {
+            .show-element-#{$name} {
+                display: block !important;
+            }
+            @if ($name == $current-resolution) {
+                $is-show: false;
+            }
+        } @else {
+            .show-element-#{$name} {
+                display: none;
+            }
+        }
+
+        // .hide-element-<x> => resolutions greater than and equal to x receive display none. 
+        // Example: .hide-element-md will hide resolutions md, lg, xl and 2xl.
+        @if $is-hide {
+            .hide-element-#{$name} {
+                display: none;
+            }
+            @if ($name == $current-resolution) {
+                $is-hide: false;
+            }
+        } @else {
+            .hide-element-#{$name} {
+                display: block !important;
+            }
+        }
+    }
+}
+
+@each $name, $screen-size in $screen-sizes {
+    @if map.get($screen-size, "max") {
+        @media screen and (min-width: map.get($screen-size, "min")) and (max-width: map.get($screen-size, "max")) {
+            @include set-responsive-classes($name);
+        }
+    } @else if not map.get($screen-size, "max") {
+        @media screen and (min-width: map.get($screen-size, "min")) {
+            @include set-responsive-classes($name);
+        }
+    }
+}

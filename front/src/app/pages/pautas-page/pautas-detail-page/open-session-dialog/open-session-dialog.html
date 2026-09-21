@@ -1,0 +1,14 @@
+<p-dialog [(visible)]="visible" [modal]="true" [style]="{ width: '25rem' }" (onHide)="onCloseDialog()">
+    <ng-template #header>
+        <h4>Iniciar Sessão</h4>
+    </ng-template>
+    <div class="py-3">
+        <p-floatlabel variant="on">
+            <p-inputnumber [(ngModel)]="duration" inputId="durationId" />
+            <label for="durationId">Tempo da sessão em minutos</label>
+        </p-floatlabel>
+    </div>
+    <ng-template #footer>
+        <p-button label="Iniciar Sessão" (click)="confirm()" />
+    </ng-template>
+</p-dialog>

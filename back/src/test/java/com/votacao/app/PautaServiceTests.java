@@ -61,20 +61,20 @@ class PautaServiceTests {
 
         assertThat(resposta.id()).isNotNull();
         assertThat(resposta.titulo()).isEqualTo(titulo);
-        assertThat(resposta.decricao()).isEqualTo(descricao);
+        assertThat(resposta.descricao()).isEqualTo(descricao);
     }
 
     @Test
     void editarPauta() {
         String titulo = "Pauta pre existente editada";
-        String descricao = pautaExistente.decricao();
+        String descricao = pautaExistente.descricao();
 
         PautaRespostaDTO resposta = pautaService.editarPauta(
                 new EditarPautaDTO(titulo, descricao), pautaExistente.id());
 
         assertThat(resposta.id()).isEqualTo(pautaExistente.id());
         assertThat(resposta.titulo()).isEqualTo(titulo);
-        assertThat(resposta.decricao()).isEqualTo(descricao);
+        assertThat(resposta.descricao()).isEqualTo(descricao);
     }
 
     @Test
