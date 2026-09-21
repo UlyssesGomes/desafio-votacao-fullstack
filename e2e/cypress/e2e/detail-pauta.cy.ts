@@ -20,7 +20,7 @@ describe('Detalhar Pauta', () => {
         });
     });
 
-    describe.only('Data que existe uma pauta cadastrada e não iniciou sessão', () => {
+    describe('Dado que existe uma pauta cadastrada e não iniciou sessão', () => {
         it('Deve exibir o id, título, descrição.', () => {
             const elements = [id, titulo, descricao];
             cy.get('[data-cy="detail-value"]')
@@ -42,10 +42,14 @@ describe('Detalhar Pauta', () => {
         });
     });
 
-    describe.only('Data que existe uma pauta cadastrada e iniciou sessão', () => {
+    describe('Dado que existe uma pauta cadastrada e iniciou sessão', () => {
         beforeEach(() => {
             cy.button('sessao-button').click();
             cy.button('iniciar-sessao').click();
+        });
+
+        it('Deve exibir o botão de contagem de votos.', () => {
+            cy.button('count-votes').should('contain.text', 'Contar Votos');
         });
 
         it('Deve exibir modal de contagem.', () => {
