@@ -7,10 +7,12 @@ import com.votacao.app.dto.VotoRecebidoDTO;
 import com.votacao.app.enums.ClienteVotoStatusEnum;
 import com.votacao.app.exceptions.RecursoNaoEncontradoException;
 import com.votacao.app.model.Pauta;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
+@Slf4j
 public class VotoUsuarioHabilitadoValidacao implements VotoValidacao {
 
     @Autowired
@@ -21,7 +23,9 @@ public class VotoUsuarioHabilitadoValidacao implements VotoValidacao {
         ClienteHTTPRespostaDTO resposta = clienteHttpService.verificarCpfClient(votoRecebidoDTO.cpf());
 
         if(resposta.status().equals(ClienteVotoStatusEnum.UNABLE_TO_VOTE.getValue())) {
-            throw new RecursoNaoEncontradoException("Usuário com CPF " + votoRecebidoDTO.cpf() + " não encontrado.");
+            String errorMessage = "Usuário com CPF " + votoRecebidoDTO.cpf() + " não encontrado.";
+            log.error(errorMessage);
+            throw new RecursoNaoEncontradoException(errorMessage);
         }
     }
 }
