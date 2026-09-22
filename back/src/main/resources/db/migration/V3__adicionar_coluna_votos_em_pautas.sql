@@ -1,0 +1,3 @@
+ALTER TABLE pautas ADD COLUMN votos_sim BIGINT;
+ALTER TABLE pautas ADD COLUMN votos_nao BIGINT;
+ALTER TABLE pautas ADD COLUMN sessao_finalizada  BOOLEAN DEFAULT FALSE;

@@ -1,0 +1,53 @@
+<app-content-panel title="Votar" [backButton]="true">
+    <form [formGroup]="form" (ngSubmit)="save()" class="flex flex-col gap-3">
+        <div class="flex flex-col gap-1">
+            <p-floatlabel variant="on">
+                <input pInputText id="pautaId" formControlName="pautaId" [fluid]="true" [invalid]="invalidField('cpf')" />
+                <label for="pautaId">Pauta ID</label>
+            </p-floatlabel>
+        </div>
+        <div class="flex flex-col gap-1">
+            <p-floatlabel variant="on">
+                <p-inputnumber inputId="usuarioId" formControlName="usuarioId" [useGrouping]="false" [min]="1" [fluid]="true"
+                    [invalid]="invalidField('usuarioId')" />
+                <label for="usuarioId">Usuário ID</label>
+            </p-floatlabel>
+
+            @if (invalidField('usuarioId')) {
+            <p-message severity="error" variant="simple" size="small">
+                {{ errorMessage('usuarioId') }}
+            </p-message>
+            }
+        </div>
+
+        <div class="flex flex-col gap-1">
+            <p-floatlabel variant="on">
+                <input pInputText id="cpf" formControlName="cpf" autocomplete="off"
+                    [fluid]="true" [invalid]="invalidField('cpf')" />
+                <label for="cpf">CPF</label>
+            </p-floatlabel>
+
+            @if (invalidField('cpf')) {
+            <p-message severity="error" variant="simple" size="small">
+                {{ errorMessage('cpf') }}
+            </p-message>
+            }
+        </div>
+
+        <div class="flex flex-col gap-1">
+            <p-floatlabel variant="on">
+                <p-select data-cy="input-vote"  inputId="voto" formControlName="opcao" [options]="voteOptions" optionLabel="label"
+                    optionValue="value" [fluid]="true" [invalid]="invalidField('opcao')" />
+                <label for="voto">Voto</label>
+            </p-floatlabel>
+
+            @if (invalidField('opcao')) {
+            <p-message severity="error" variant="simple" size="small">
+                {{ errorMessage('opcao') }}
+            </p-message>
+            }
+        </div>
+
+        <p-button data-cy="send-vote" type="submit" label="Enviar" [disabled]="form.invalid"/>
+    </form>
+</app-content-panel>

@@ -1,0 +1,32 @@
+<nav class="navbar flex justify-between">
+    <div class="flex">
+        <!-- LEFT SIDE -->
+        <div class="flex items-center px-2 animate-slidedown">
+            <!-- logo -->
+            <img class="me-3 logo-navbar" src="resources/logo/votacao-logo.png" alt="Logo da marca." />
+            <h3>Votação App</h3>
+        </div>
+        <div class="flex items-center">
+            <!-- menu -->
+            <div class="ms-2 nav-menus clean-button show-element-md" *ngFor="let item of menuButtons">
+                <i class="me-2 pi {{item.icon}} text-xl md:text-lg"></i>
+                <a class="nav-link" [routerLink]="item.path">{{item.title}}</a>
+            </div>
+        </div>
+    </div>
+    <div class="flex items-center">
+        <div>
+            <button class="clean-button show-element-md">
+                <i class="ms-2 me-2 pi pi-user text-2xl"></i>
+            </button>
+        </div>
+
+        <button class="clean-button hide-element-md" (click)="openSidebar()">
+            <i class="pi pi-bars text-2xl"></i>
+        </button>
+
+        <span class="show-element-md">Olá, <span class="font-bold">Ulysses Gomes</span></span>
+    </div>
+</nav>
+
+<app-simple-sidebar [menuButtons]="menuButtons" [(isOpen)]="isSidebarOpen"/>

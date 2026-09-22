@@ -1,0 +1,21 @@
+@use "primeicons/primeicons.css";
+@use "resources/styles/responsive-objects";
+@use "resources/styles/utils";
+
+:root {
+  --body-background: rgb(230, 230, 230);
+  --primary-background: #5333ed;
+  --primary-background-contrast: #2cd4d9;
+  --secondary-background: #283f78;
+  --third-background: rgb(69, 186, 134);
+  --font-white: #FFF;
+  --font-defailt: #333;
+}
+
+html,
+body {
+  background-color: var(--body-background);
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  margin: 0;
+  min-height: 100vh;
+}
