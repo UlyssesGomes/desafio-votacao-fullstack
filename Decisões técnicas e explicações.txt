@@ -1,0 +1,26 @@
+No backend
+
+- A nomenclatura em português foi escolhida para evitar falso cognato com as palavras da lingua inglesa no tema da aplicação.
+- Foram criados componentes para validação implementando uma interface, seguindo o princípio Open/Close do Solid, onde é possível adicionar novas validações sem alterar os métodos que as usam.
+- Foi criado o ErrorHandler para formatar e centralizar as mensagens do sistema.
+- Foram criados vários DTO's para contextos diferentes onde cada um só expôe o dado necessário para trafegar nas requisições visando a segurança nos dados e foco no contexto.
+- Foi adicionado um campo de votos_sim e votos_nao para evitar recontagem em cenário de alta demanda.
+- O versionamento da api foi feito no mapeamento do request do controller por convensão adotada no mercado e praticidade.
+
+
+No frontend
+
+- Criei o projeto no Angular 20
+- Instalei no projeto o Primeng compatível
+- Para responsividade escolhi usar o Tailwind
+- Criei uma página Base para adicionar o layout geral do site onde as demais páginas serão renderizadas dentro dela
+- Crei uma pasta /core para organizar componentes base do projeto como navbar e footer
+- Crei uma pasta /shared para adicionar componentes que são comuns entre algumas páginas
+- Desenvolvi uma barra de menu que no modo responsivo transforma em um só botão que abre uma side bar com o menu.
+- Responsividade da tabela de pautas é uma barra lateral.
+- No frontend, todas as requisições estão com log do tipo info.
+- No teste de votar quando uma sessão encerrou, foi considerado o uso do wait de 1 minuto, em um cenário real seria realizado uma alteração no banco para não ser necessário esperar o tempo, ou criar um endpoint no backend para profile te test.
+
+Readme
+
+Existem 3 Readme, um para cada parte do projeto e cada um encontra-se em sua devida pasta (back, front e e2e).
