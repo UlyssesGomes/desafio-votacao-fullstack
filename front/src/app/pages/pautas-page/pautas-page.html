@@ -4,12 +4,12 @@
             <p-button icon="pi pi-plus" (onClick)="createPauta()"/>
         </div>
 
-        <p-table [value]="pautasList" stripedRows [tableStyle]="{ 'min-width': '50rem' }" size="large">
+        <p-table [value]="pautasList" stripedRows [tableStyle]="{ 'min-width': '50rem', 'table-layout': 'fixed' }" size="large">
             <ng-template #header>
                 <tr>
-                    <th>Id</th>
-                    <th>Título</th>
-                    <th>Descrição</th>
+                    <th style="width: 50px;">Id</th>
+                    <th style="width: 280px;">Título</th>
+                    <th style="width: auto;">Descrição</th>
                     <th class="table-title-cell"></th>
                 </tr>
             </ng-template>
@@ -17,13 +17,17 @@
                 <tr>
                     <td>{{ pauta.id }}</td>
                     <td>{{ pauta.titulo }}</td>
-                    <td class="ellipsis">{{ pauta.descricao }}</td>
+                    <td  class="ellipsis" [title]="pauta.descricao">{{ pauta.descricao }}</td>
                     <td>
                         <p-button data-cy="detail-button" icon="pi pi-search" severity="secondary" rounded (onClick)="showPautaDetails(pauta.id)"/>
                     </td>
                 </tr>
             </ng-template>
         </p-table>
+        
+        <div *ngIf="!pautasList || pautasList.length == 0" class="flex justify-center items-center h-100">
+            <p>Nenhuma Pauta cadastrada ainda.</p>
+        </div>
 
         <div class="flex items-center justify-end">
             <span class="mx-1 text-color">Items por página: </span>

@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 
 import { ButtonModule } from 'primeng/button';
 import { FloatLabelModule } from 'primeng/floatlabel';
+import { InputMaskModule } from 'primeng/inputmask';
 import { InputNumber } from 'primeng/inputnumber';
 import { InputText } from 'primeng/inputtext';
 import { Message } from 'primeng/message';
@@ -15,7 +16,7 @@ import { PautaService } from '../pautas-page/service/pauta.service';
 
 @Component({
   selector: 'app-votar-page',
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, ButtonModule, ContentPanel, FloatLabelModule, InputNumber, InputText, Message, SelectModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, ButtonModule, ContentPanel, FloatLabelModule, InputMaskModule, InputNumber, InputText, Message, SelectModule],
   templateUrl: './votar-page.html',
   styleUrl: './votar-page.scss',
 })
